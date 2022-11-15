@@ -30,9 +30,12 @@ class MoveDirectionCommandReceiver : public CommandReceiver
 public:
 	virtual void execute() {
 
-		float x = currentAction_ & sf::CommandTypes::RIGHT ? 1.f : currentAction_ & sf::CommandTypes::LEFT ? -1.f : 0.f;
-		float y = currentAction_ & sf::CommandTypes::UP ? 1.f : currentAction_ & sf::CommandTypes::DOWN ? -1.f : 0.f;
-
+		float x = currentAction_ & sf::CommandTypes::RIGHT && !(currentAction_ & sf::CommandTypes::LEFT) 
+				? 1.f : currentAction_ & sf::CommandTypes::LEFT && !(currentAction_ & sf::CommandTypes::RIGHT)
+				? -1.f : 0.f;
+		float y = currentAction_ & sf::CommandTypes::UP && !(currentAction_ & sf::CommandTypes::DOWN)
+			? 1.f : currentAction_ & sf::CommandTypes::DOWN && !(currentAction_ & sf::CommandTypes::UP)
+			? -1.f : 0.f;
 		moveDir( glm::vec2(x, y) );
 	}
 	virtual void moveDir(glm::vec2 direction) = 0;

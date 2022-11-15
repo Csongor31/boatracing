@@ -9,7 +9,8 @@ void MyAmazingGame::postInit( sf::Framework< MyAmazingGame >& iFramework )
 {
 	spBoat_ = new sf::BoatSprite();
 	spBoat_->setTexture( iFramework.getTextureManager().getTexture( "hornet" ) );
-	spBoat_->SetVelocity(glm::vec2(2.f, 2.f));
+	spBoat_->SetVelocity(glm::vec2(4.f, 4.f));
+	spBoat_->SetAcceleration(.1f);
 	spLayer01_.setTexture( iFramework.getTextureManager().getTexture( "layer01" ) );
 	spLayer02_.setTexture( iFramework.getTextureManager().getTexture( "layer02" ) );
 	spLayer03_.setTexture( iFramework.getTextureManager().getTexture( "layer03" ) );
@@ -39,6 +40,7 @@ void MyAmazingGame::step( sf::Framework< MyAmazingGame >& iFramework )
 			delete command;
 		}
 	}
+	spBoat_->step();
 
 	/*if (iFramework.getInputManager().isPressed("left"))
 	{
@@ -77,9 +79,9 @@ void MyAmazingGame::step( sf::Framework< MyAmazingGame >& iFramework )
 		spHornet_.setPosition( spHornet_.getPosition() + glm::vec2( 0.0f, -velHornet.y ) );
 	}*/
 
-	static float cnt = 0.0f;
-	cnt += 0.05f;
-	const float s = std::sinf( cnt );
+	//static float cnt = 0.0f;
+	//cnt += 0.05f;
+	const float s = 1.f;
 
 	spLayer01_.setPosition( { basePos_.x + s  * 20.0f, basePos_.y } );
 	spLayer02_.setPosition( { basePos_.x + s  * 40.0f, basePos_.y } );
