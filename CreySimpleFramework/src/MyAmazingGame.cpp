@@ -7,7 +7,9 @@ void MyAmazingGame::preInit( sf::Framework< MyAmazingGame >& iFramework )
 
 void MyAmazingGame::postInit( sf::Framework< MyAmazingGame >& iFramework )
 {
-	spHornet_.setTexture( iFramework.getTextureManager().getTexture( "hornet" ) );
+	spBoat_ = new sf::BoatSprite();
+	spBoat_->setTexture( iFramework.getTextureManager().getTexture( "hornet" ) );
+	spBoat_->SetVelocity(glm::vec2(2.f, 2.f));
 	spLayer01_.setTexture( iFramework.getTextureManager().getTexture( "layer01" ) );
 	spLayer02_.setTexture( iFramework.getTextureManager().getTexture( "layer02" ) );
 	spLayer03_.setTexture( iFramework.getTextureManager().getTexture( "layer03" ) );
@@ -19,7 +21,7 @@ void MyAmazingGame::postInit( sf::Framework< MyAmazingGame >& iFramework )
 	spRotatingObject_.setPosition( { 100.0f, 100.0f } );
 
 	basePos_ = { iFramework.getWindow().getWindowWidth() / 2, iFramework.getWindow().getWindowHeight() / 2 };
-	spHornet_.setPosition( basePos_ );
+	spBoat_->setPosition( basePos_ );
 	spBoom_.setPosition( basePos_ + glm::vec2( 50.0f, 0.0f ) );
 }
 
@@ -28,33 +30,43 @@ void MyAmazingGame::step( sf::Framework< MyAmazingGame >& iFramework )
 	glClearColor( color.r, color.g, color.b, 1.0f );
 	glClear( GL_COLOR_BUFFER_BIT );
 
-	if ( iFramework.getInputManager().isPressed( "left" ) )
 	{
-		spHornet_.setPosition( spHornet_.getPosition() + glm::vec2( -velHornet.x, 0.0f ) );
-		spHornet_.setRenderFlag( sf::RenderFlag::Flip );
+		sf::Command* command = iFramework.getInputManager().handleInput(spBoat_);
+		if (command)
+		{
+			command->execute();
+
+			delete command;
+		}
+	}
+
+	/*if (iFramework.getInputManager().isPressed("left"))
+	{
+		spBoat_.setPosition( spHornet_.getPosition() + glm::vec2( -velHornet.x, 0.0f ) );
+		//spHornet_.setRenderFlag( sf::RenderFlag::Flip );
 	}
 	if (iFramework.getInputManager().isRepeat("left"))
 	{
 		spHornet_.setPosition( spHornet_.getPosition() + glm::vec2( -velHornet.x, 0.0f ) );
-		spHornet_.setRenderFlag( sf::RenderFlag::Flip );
+		//spHornet_.setRenderFlag( sf::RenderFlag::Flip );
 	}
 	if ( iFramework.getInputManager().isPressed( "right" ) )
 	{
 		spHornet_.setPosition( spHornet_.getPosition() + glm::vec2( velHornet.x, 0.0f ) );
-		spHornet_.setRenderFlag( sf::RenderFlag::NoEffect );
+		//spHornet_.setRenderFlag( sf::RenderFlag::NoEffect );
 	}
 	if ( iFramework.getInputManager().isRepeat( "right" ) )
 	{
 		spHornet_.setPosition( spHornet_.getPosition() + glm::vec2( velHornet.x, 0.0f ) );
-		spHornet_.setRenderFlag( sf::RenderFlag::NoEffect );
+		//spHornet_.setRenderFlag( sf::RenderFlag::NoEffect );
 	}
 	if ( iFramework.getInputManager().isPressed( "up" ) )
 	{
-		spHornet_.setPosition( spHornet_.getPosition() + glm::vec2( 0.0f, velHornet.y ) );
+		//spHornet_.setPosition( spHornet_.getPosition() + glm::vec2( 0.0f, velHornet.y ) );
 	}
 	if ( iFramework.getInputManager().isRepeat( "up" ) )
 	{
-		spHornet_.setPosition( spHornet_.getPosition() + glm::vec2( 0.0f, velHornet.y ) );
+		//setPosition( spHornet_.getPosition() + glm::vec2( 0.0f, velHornet.y ) );
 	}
 	if ( iFramework.getInputManager().isPressed( "down" ) )
 	{
@@ -63,7 +75,7 @@ void MyAmazingGame::step( sf::Framework< MyAmazingGame >& iFramework )
 	if ( iFramework.getInputManager().isRepeat( "down" ) )
 	{
 		spHornet_.setPosition( spHornet_.getPosition() + glm::vec2( 0.0f, -velHornet.y ) );
-	}
+	}*/
 
 	static float cnt = 0.0f;
 	cnt += 0.05f;
@@ -85,7 +97,7 @@ void MyAmazingGame::step( sf::Framework< MyAmazingGame >& iFramework )
 	spLayer02_.render();
 	spLayer03_.render();
 	spLayer04_.render();
-	spHornet_.render();
+	spBoat_->render();
 	spLayer05_.render();
 	spRotatingObject_.render();
 	spBoom_.render();

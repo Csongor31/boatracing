@@ -9,20 +9,24 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 
 #include "debug.h"
 #include "Types.h"
 #include "static_string.h"
 #include "Utils.h"
 #include "Window.h"
+
 #include "Texture.cpp"
+#include "CommandReciever.h"
 #include "Sprite.cpp"
+#include "BoatSprite.cpp"
+#include "Command.h"
 #include "TextureLoaderBase.cpp"
 #include "TGATextureLoader.cpp"
 #include "TextureManager.cpp"
 #include "InputManager.cpp"
 #include "Framework.cpp"
-
 #include "MyAmazingGame.cpp"
 
 int main( void )

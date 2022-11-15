@@ -21,7 +21,7 @@ public:
 	glm::vec2 		getPosition() const;
 	void 			render();
 
-private:
+protected:
 	sf::Texture*	texture_ 	= nullptr;
 	float			angle_ 		= 0.0f; // degrees
 	sf::RenderFlag	renderFlag_ = sf::RenderFlag::NoEffect;
@@ -30,6 +30,7 @@ private:
 	sf::s32			tileX_;
 	sf::s32			tileY_;
 	glm::vec2		position_;
+	glm::vec2		 vel_;
 };
 
 }
