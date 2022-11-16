@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <vector>
+#include <list>
 #include <iostream>
 #include <fstream>
 #include <algorithm>
@@ -19,9 +20,10 @@
 
 #include "Texture.cpp"
 #include "CommandReciever.h"
-#include "Sprite.cpp"
-#include "BoatSprite.cpp"
 #include "Command.h"
+#include "Sprite.cpp"
+#include "Grid.cpp"
+#include "BoatSprite.cpp"
 #include "TextureLoaderBase.cpp"
 #include "TGATextureLoader.cpp"
 #include "TextureManager.cpp"

@@ -2,37 +2,50 @@
 
 namespace sf
 {
-	void BoatSprite::execute() {
-		return;
-	}
-
-	void BoatSprite::moveDir(glm::vec2 dir)
+	void BoatSprite::moveDir(sf::s8 x, sf::s8 y)
 	{
-		//glm::vec2-ben a float valamiert pontos
-		if ( glm::abs(dir.x) != 0 )
+		if (x != 0) angle_ += -x * glm::sin(glm::radians(angle_)) * turnSpeed_;
+
+		if (y != 0) angle_ +=  y * glm::cos(glm::radians(angle_)) * turnSpeed_;
+
+
+		if ( x == 1 && currentVelX_ < maxSpeed_)
 		{
-			currentVelX_ += dir.x * 2;
+			currentVelX_ += 8;
+		}
+		else if (x == -1 && currentVelX_ > -maxSpeed_)
+		{
+			currentVelX_ -= 8;
 		}
 
-		if (glm::abs(dir.y) != 0)
+		if (y == 1 && currentVelY_ < maxSpeed_)
 		{
-			currentVelY_ += dir.y * 2;
+			currentVelY_ += 8;
+		}
+		else if (y == -1 && currentVelY_ > -maxSpeed_)
+		{
+			currentVelY_ -= 8;
 		}
 	}
 
-	void BoatSprite::step() 
+	sf::Command* BoatSprite::step(sf::Grid* grid) 
 	{
-		//mivel a movedir csak gombnyomasra csinal barmit, igy ott 2-vel novekszik a sebbesseg, a step-ben meg mindig csokken eggyel az ertek 
 		currentVelX_ = currentVelX_ > 0 ? currentVelX_ - 1 : currentVelX_ < 0 ? currentVelX_ + 1 : 0;
 		currentVelY_ = currentVelY_ > 0 ? currentVelY_ - 1 : currentVelY_ < 0 ? currentVelY_ + 1 : 0;
 
-		glm::vec2 velocity = { currentVelX_ * acc_, currentVelY_ * acc_ };
-
-		velocity.x = glm::min(velocity.x, vel_.x);
-		velocity.x = glm::max(velocity.x, -vel_.x);
-		velocity.y = glm::min(velocity.y, vel_.y);
-		velocity.y = glm::max(velocity.y, -vel_.y);
+		glm::vec2 velocity = { currentVelX_ * .1f, currentVelY_ * .1f };
 
 		position_ = position_ + velocity;
+
+		grid->spriteMoved(this, (position_ - velocity));
+
+		Sprite* collidedSprite = grid->getCell(this).handleCollisions(this);
+
+		if (collidedSprite)
+		{
+			return nullptr; // vissza fogunk adni egy collide commandot, ami majd megmondja, hogy mit csinaljunk
+		}
+
+		return nullptr;
 	}
 }

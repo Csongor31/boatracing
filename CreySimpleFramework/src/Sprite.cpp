@@ -27,6 +27,16 @@ float Sprite::getAngle() const
 	return angle_;
 }
 
+float Sprite::getWidth() const
+{
+	return texture_->getWidth() / numTileX_;
+}
+
+float Sprite::getHeight() const
+{
+	return texture_->getHeight() / numTileY_;
+}
+
 void Sprite::setRenderFlag( const sf::RenderFlag iRenderFlag )
 {
 	renderFlag_ = iRenderFlag;
@@ -45,8 +55,8 @@ glm::vec2 Sprite::getPosition() const
 void Sprite::render()
 {
 	SFASSERT( texture_ != nullptr );
-	const float tileWidth = texture_->getWidth() / numTileX_;
-	const float tileHeight = texture_->getHeight() / numTileY_;
+	const float tileWidth = getWidth();
+	const float tileHeight = getHeight();
 	const float sx = tileWidth * tileX_;
 	const float sy = tileHeight * tileY_;
 	const float dx = sx + tileWidth;

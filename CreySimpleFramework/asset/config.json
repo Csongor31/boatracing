@@ -3,7 +3,7 @@
 	{
 		"title" : "Crey Simple Framework",
 		"width" : 800,
-		"height" : 768
+		"height" : 800
 	},
 
 	"input" :
@@ -12,6 +12,10 @@
 		{ "tag" : "right", "keycode" : 68 },
 		{ "tag" : "up", "keycode" : 87 },
 		{ "tag" : "down", "keycode" : 83 },
+		{ "tag" : "left2", "keycode" : 74 },
+		{ "tag" : "right2", "keycode" : 76 },
+		{ "tag" : "up2", "keycode" : 73 },
+		{ "tag" : "down2", "keycode" : 75 },
 		{ "tag" : "action", "keycode" : 32 }
 	],
 
