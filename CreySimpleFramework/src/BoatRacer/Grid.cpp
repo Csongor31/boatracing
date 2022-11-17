@@ -5,52 +5,52 @@ namespace sf
 
 sf::Actor* Cell::getActor()
 {
-	return actor_;
+	return aActor_;
 }
 
 void Cell::setActor(sf::Actor* actor)
 { 
-	actor_ = actor;
+	aActor_ = actor;
 }
 void Cell::removeActor()
 { 
-	actor_ = nullptr;
+	aActor_ = nullptr;
 }
 
-Actor* Cell::handleCollisions(Actor* actorToCheck) const
+Actor* Cell::handleCollisions(Actor* aActorToCheck) const
 {
-	if (actor_)
+	if (aActor_)
 	{
-		float actorMinX = actorToCheck->getPosition().x - (actorToCheck->getWidth() / 2);
-		float actorMinY = actorToCheck->getPosition().y - (actorToCheck->getHeight() / 2);
+		float nActorMinX = aActorToCheck->getPosition().x - (aActorToCheck->getWidth() / 2);
+		float nActorMinY = aActorToCheck->getPosition().y - (aActorToCheck->getHeight() / 2);
 
-		float actorPosX = (glm::cos(glm::radians(-actorToCheck->getAngle())) * (actor_->getPosition().x - actorToCheck->getPosition().x)) - (glm::sin(glm::radians(-actorToCheck->getAngle())) * (actor_->getPosition().y - actorToCheck->getPosition().y)) + actorToCheck->getPosition().x;
-		float actorPosY = (glm::sin(glm::radians(-actorToCheck->getAngle())) * (actor_->getPosition().x - actorToCheck->getPosition().x)) + (glm::cos(glm::radians(-actorToCheck->getAngle())) * (actor_->getPosition().y - actorToCheck->getPosition().y)) + actorToCheck->getPosition().y;
+		float nActorPosX = (glm::cos(glm::radians(-aActorToCheck->getAngle())) * (aActor_->getPosition().x - aActorToCheck->getPosition().x)) - (glm::sin(glm::radians(-aActorToCheck->getAngle())) * (aActor_->getPosition().y - aActorToCheck->getPosition().y)) + aActorToCheck->getPosition().x;
+		float nActorPosY = (glm::sin(glm::radians(-aActorToCheck->getAngle())) * (aActor_->getPosition().x - aActorToCheck->getPosition().x)) + (glm::cos(glm::radians(-aActorToCheck->getAngle())) * (aActor_->getPosition().y - aActorToCheck->getPosition().y)) + aActorToCheck->getPosition().y;
 
-		float closestX = actorPosX;
-		float closestY = actorPosY;
+		float nClosestX = nActorPosX;
+		float nClosestY = nActorPosY;
 
-		if (actorPosX < actorMinX)
+		if (nActorPosX < nActorMinX)
 		{
-			closestX = actorMinX;
+			nClosestX = nActorMinX;
 		}
-		else if (actorPosX > actorMinX + actorToCheck->getWidth())
+		else if (nActorPosX > nActorMinX + aActorToCheck->getWidth())
 		{
-			closestX = actorMinX + actorToCheck->getWidth();
+			nClosestX = nActorMinX + aActorToCheck->getWidth();
 		}
 
-		if (actorPosY < actorMinY)
+		if (nActorPosY < nActorMinY)
 		{
-			closestY = actorMinY;
+			nClosestY = nActorMinY;
 		}
-		else if (actorPosY > actorMinY + actorToCheck->getHeight())
+		else if (nActorPosY > nActorMinY + aActorToCheck->getHeight())
 		{
-			closestY = actorMinY + actorToCheck->getHeight();
+			nClosestY = nActorMinY + aActorToCheck->getHeight();
 		}
-		float distance = glm::distance(glm::vec2(actorPosX, actorPosY), glm::vec2(closestX, closestY));
-		if (distance < actor_->getWidth())
+		float distance = glm::distance(glm::vec2(nActorPosX, nActorPosY), glm::vec2(nClosestX, nClosestY));
+		if (distance < aActor_->getWidth())
 		{
-			return actor_;
+			return aActor_;
 		}
 	}
 	return nullptr;
@@ -58,55 +58,55 @@ Actor* Cell::handleCollisions(Actor* actorToCheck) const
 
 const Cell& Grid::getCell(Actor* spSprite)
 {
-	sf::s8 nCurrentTileX = (sf::u8) ( spSprite->getPosition().x / tileWidth_ );
-	sf::s8 nCurrentTileY = (sf::u8) ( spSprite->getPosition().y / tileHeight_ );
+	sf::s8 nCurrentTileX = (sf::u8) ( spSprite->getPosition().x / nTileWidth_ );
+	sf::s8 nCurrentTileY = (sf::u8) ( spSprite->getPosition().y / nTileHeight_ );
 
-	return cells_[nCurrentTileX][nCurrentTileY];
+	return vvCells_[nCurrentTileX][nCurrentTileY];
 }
 
-void Grid::addActorToCell(Actor* actor)
+void Grid::addActorToCell(Actor* aActor)
 {
-	sf::u8 nCurrentTileX = (sf::u8) ( actor->getPosition().x / tileWidth_ );
-	sf::u8 nCurrentTileY = (sf::u8) ( actor->getPosition().y / tileHeight_ );
+	sf::u8 nCurrentTileX = (sf::u8) ( aActor->getPosition().x / nTileWidth_ );
+	sf::u8 nCurrentTileY = (sf::u8) ( aActor->getPosition().y / nTileHeight_ );
 
-	cells_[nCurrentTileX][nCurrentTileY].setActor(actor);
+	vvCells_[nCurrentTileX][nCurrentTileY].setActor(aActor);
 }
 
-void Grid::removeActor(Actor* actor)
+void Grid::removeActor(Actor* aActor)
 {
-	sf::u8 nCurrentTileX = (sf::u8) ( actor->getPosition().x / tileWidth_ );
-	sf::u8 nCurrentTileY = (sf::u8) ( actor->getPosition().y / tileHeight_ );
+	sf::u8 nCurrentTileX = (sf::u8) ( aActor->getPosition().x / nTileWidth_ );
+	sf::u8 nCurrentTileY = (sf::u8) ( aActor->getPosition().y / nTileHeight_ );
 
-	cells_[nCurrentTileX][nCurrentTileY].removeActor();
+	vvCells_[nCurrentTileX][nCurrentTileY].removeActor();
 };
 
-bool Grid::actorMoved(Actor* movedActor, glm::vec2& vNewPos)
+bool Grid::actorMoved(Actor* aMovedActor, glm::vec2& vNewPos)
 {
-	sf::u8 nNewTileX = (sf::u8) (vNewPos.x / tileWidth_);
-	sf::u8 nNewTileY = (sf::u8) (vNewPos.y / tileHeight_);
-	sf::u8 nCurrentTileX = (sf::u8) ( movedActor->getPosition().x / tileWidth_ );
-	sf::u8 nCurrentTileY = (sf::u8) ( movedActor->getPosition().y / tileHeight_ );
+	sf::u8 nNewTileX = (sf::u8) (vNewPos.x / nTileWidth_);
+	sf::u8 nNewTileY = (sf::u8) (vNewPos.y / nTileHeight_);
+	sf::u8 nCurrentTileX = (sf::u8) ( aMovedActor->getPosition().x / nTileWidth_ );
+	sf::u8 nCurrentTileY = (sf::u8) ( aMovedActor->getPosition().y / nTileHeight_ );
 
-	if (nNewTileX >= maxTileCountX_)
+	if (nNewTileX >= nMaxTileCountX_)
 	{
-		vNewPos.x = (float) maxTileCountX_ * tileWidth_ - 1;
+		vNewPos.x = (float) nMaxTileCountX_ * nTileWidth_ - 1;
 	}
 	if (vNewPos.x < 0)
 	{
 		vNewPos.x = 0;
 	}
-	if (nNewTileY >= maxTileCountY_)
+	if (nNewTileY >= nMaxTileCountY_)
 	{
-		vNewPos.y = (float) maxTileCountY_ * tileHeight_ - 1;
+		vNewPos.y = (float) nMaxTileCountY_ * nTileHeight_ - 1;
 	}
 	if (vNewPos.y < 0)
 	{
 		vNewPos.y = 0;
 	}
 	
-	if (maxTileCountX_ > nNewTileX && maxTileCountY_ > nNewTileY)
+	if (nMaxTileCountX_ > nNewTileX && nMaxTileCountY_ > nNewTileY)
 	{
-		sf::Actor* actorInCell = cells_[nNewTileX][nNewTileY].getActor();
+		sf::Actor* actorInCell = vvCells_[nNewTileX][nNewTileY].getActor();
 
 		if (actorInCell)
 		{
@@ -114,19 +114,19 @@ bool Grid::actorMoved(Actor* movedActor, glm::vec2& vNewPos)
 			{
 				if (nNewTileX > nCurrentTileX)
 				{
-					vNewPos.x = (float) nNewTileX * tileWidth_ - 1;
+					vNewPos.x = (float) nNewTileX * nTileWidth_ - 1;
 				}
 				if (nNewTileX < nCurrentTileX)
 				{
-					vNewPos.x = (float) nCurrentTileX * tileWidth_;
+					vNewPos.x = (float) nCurrentTileX * nTileWidth_;
 				}
 				if (nNewTileY > nCurrentTileY)
 				{
-					vNewPos.y = (float) nNewTileY * tileHeight_ - 1;
+					vNewPos.y = (float) nNewTileY * nTileHeight_ - 1;
 				}
 				if (nNewTileY < nCurrentTileY)
 				{
-					vNewPos.y = (float) nCurrentTileY * tileHeight_;
+					vNewPos.y = (float) nCurrentTileY * nTileHeight_;
 				}
 			}
 		}

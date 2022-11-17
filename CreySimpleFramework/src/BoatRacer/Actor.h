@@ -11,9 +11,9 @@ enum ActorType {
 class Actor : virtual public sf::CommandReceiver
 {
 public:
-	Actor() : sf::CommandReceiver() { sprite_ = std::make_unique<sf::Sprite>(); }
+	Actor() : sf::CommandReceiver() { spSprite_ = std::make_unique<sf::Sprite>(); }
 
-	Sprite* getSprite() { return sprite_.get(); }
+	Sprite* getSprite() { return spSprite_.get(); }
 
 	void setAngle( const float iAngleInDegrees );
 	float getAngle() const;
@@ -36,13 +36,13 @@ public:
 	void render();
 
 protected:
-	std::unique_ptr<sf::Sprite> sprite_;
-	glm::vec2 position_;
-	sf::u8 width_;
-	sf::u8 height_;
-	sf::u8 type_;
+	std::unique_ptr<sf::Sprite> spSprite_;
+	glm::vec2 vPosition_;
+	sf::u8 nWidth_;
+	sf::u8 nHeight_;
+	sf::u8 nType_;	//used in MyAmazingGame pre- and postinit for texture loading
 	sf::ActorType actorType_;
-	float angle_ = 0.0f; // degrees
+	float nAngle_ = 0.0f; // degrees
 };
 }
 

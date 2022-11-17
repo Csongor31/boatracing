@@ -12,45 +12,45 @@ public:
 	Actor* handleCollisions(Actor* actorToCheck) const;
 
 private:
-	sf::Actor* actor_; //listaban tarolom az elemeket a gyorsabb kiszedegetes erdekeben
+	sf::Actor* aActor_; //listaban tarolom az elemeket a gyorsabb kiszedegetes erdekeben
 };
 
 class Grid
 {
 public:
-	Grid(sf::u16 nMapSizeWidth, sf::u16 nMapSizeHeight, sf::u8 nTileSizeWidth, sf::u8 nTileSizeHeight) : tileWidth_(nTileSizeHeight), tileHeight_(nTileSizeHeight)
+	Grid(sf::u16 nMapSizeWidth, sf::u16 nMapSizeHeight, sf::u8 nTileSizeWidth, sf::u8 nTileSizeHeight) : nTileWidth_(nTileSizeHeight), nTileHeight_(nTileSizeHeight)
 	{
-		maxTileCountX_ = nMapSizeWidth / nTileSizeWidth;
-		maxTileCountY_ = nMapSizeHeight / nTileSizeHeight;
+		nMaxTileCountX_ = nMapSizeWidth / nTileSizeWidth;
+		nMaxTileCountY_ = nMapSizeHeight / nTileSizeHeight;
 
-		cells_.reserve(maxTileCountX_);
+		vvCells_.reserve(nMaxTileCountX_);
 		sf::u8 nRow = 0;
-		while (nRow < maxTileCountX_)
+		while (nRow < nMaxTileCountX_)
 		{
 			std::vector<sf::Cell> row;
-			row.reserve(maxTileCountY_);
+			row.reserve(nMaxTileCountY_);
 			sf::u8 nTile = 0;
-			while (nTile < maxTileCountY_)
+			while (nTile < nMaxTileCountY_)
 			{
 				row.push_back(sf::Cell());
 				nTile++;
 			}
-			cells_.push_back(row);
+			vvCells_.push_back(row);
 			nRow++;
 		}
 	}
 
-	const Cell& getCell(Actor* actor);
-	void addActorToCell(Actor* actor);
-	void removeActor(Actor* actor);
-	bool actorMoved(Actor* movedActor, glm::vec2& vNewPos);
+	const Cell& getCell(Actor* aActor);
+	void addActorToCell(Actor* aActor);
+	void removeActor(Actor* aActor);
+	bool actorMoved(Actor* aMovedActor, glm::vec2& vNewPos);
 
 private:
-	std::vector<std::vector<Cell> > cells_;
-	sf::u8 tileWidth_;
-	sf::u8 tileHeight_;
-	sf::u8 maxTileCountX_;
-	sf::u8 maxTileCountY_;
+	std::vector<std::vector<Cell> > vvCells_;
+	sf::u8 nTileWidth_;
+	sf::u8 nTileHeight_;
+	sf::u8 nMaxTileCountX_;
+	sf::u8 nMaxTileCountY_;
 };
 }
 

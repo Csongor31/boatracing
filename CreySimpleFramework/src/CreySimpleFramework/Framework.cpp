@@ -88,6 +88,7 @@ void Framework< TGAME >::loop()
 template< typename TGAME >
 void Framework< TGAME >::terminate()
 {
+	game_.terminate();
 	SFLOG( "Terminating Crey Simple Framework...\n" );
 	glfwTerminate();
 }

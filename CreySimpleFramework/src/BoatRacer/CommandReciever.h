@@ -11,10 +11,10 @@ public:
 	virtual ~CommandReceiver() {};
 	bool operator==( const CommandReceiver& rhs ) { return (*this).getId() == rhs.getId(); }
 
-	sf::u8 getId() const { return id_; }
+	sf::u16 getId() const { return id_; }
 
 protected:
-	sf::u8 id_;
+	sf::u16 id_;
 };
 
 class MoveDirectionCommandReceiver : virtual public CommandReceiver

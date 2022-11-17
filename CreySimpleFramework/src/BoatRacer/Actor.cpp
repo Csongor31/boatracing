@@ -2,14 +2,14 @@
 
 namespace sf
 {
-void Actor::setAngle(const float iAngleInDegrees)
+void Actor::setAngle(const float nAngleInDegrees)
 {
-	angle_ = iAngleInDegrees;
+	nAngle_ = nAngleInDegrees;
 }
 
 float Actor::getAngle() const
 {
-	return angle_;
+	return nAngle_;
 }
 
 void Actor::setActorType(sf::ActorType actorType)
@@ -22,49 +22,49 @@ sf::ActorType Actor::getActorType() const
 	return actorType_;
 }
 
-void Actor::setType(const sf::u8 type)
+void Actor::setType(const sf::u8 nType)
 {
-	type_ = type;
+	nType_ = nType;
 }
 
 sf::u8 Actor::getType() const
 {
-	return type_;
+	return nType_;
 }
 
-void Actor::setWidth(const sf::u8 width)
+void Actor::setWidth(const sf::u8 nWidth)
 {
-	width_ = width;
+	nWidth_ = nWidth;
 }
 
 sf::u8 Actor::getWidth() const
 {
-	return width_;
+	return nWidth_;
 }
 
-void Actor::setHeight(const sf::u8 height)
+void Actor::setHeight(const sf::u8 nHeight)
 {
-	height_ = height;
+	nHeight_ = nHeight;
 }
 
 sf::u8 Actor::getHeight() const
 {
-	return height_;
+	return nHeight_;
 }
-void Actor::setPosition(const glm::vec2 iPosition)
+void Actor::setPosition(const glm::vec2 vPosition)
 {
-	position_ = iPosition;
+	vPosition_ = vPosition;
 }
 
 glm::vec2 Actor::getPosition() const
 {
-	return position_;
+	return vPosition_;
 }
 
 void Actor::render()
 {
-	sprite_->setAngle(angle_);
-	sprite_->setPosition(position_);
-	sprite_->render();
+	spSprite_->setAngle(nAngle_);
+	spSprite_->setPosition(vPosition_);
+	spSprite_->render();
 }
 }

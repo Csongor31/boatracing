@@ -2,45 +2,74 @@
 
 namespace sf
 {
-void BoatActor::moveDir(sf::s8 x, sf::s8 y)
+bool PlayerControl::getPlayer() const
 {
-	if (x != 0) angle_ += -x * glm::sin(glm::radians(angle_)) * turnSpeed_;
-	if (y != 0) angle_ += y * glm::cos(glm::radians(angle_)) * turnSpeed_ ;
+	return bPlayerOne_; 
+}
+sf::u8 PlayerControl::getScore() const 
+{
+	return nScore_; 
+}
+
+void PlayerControl::incrementScore()
+{
+	++nScore_;
+}
+
+void BoatActor::moveDir(sf::s8 nXDir, sf::s8 nYDir)
+{
+	if (nXDir != 0) nAngle_ += -nXDir * glm::sin(glm::radians(nAngle_)) * nTurnSpeed_;
+	if (nYDir != 0) nAngle_ += nYDir * glm::cos(glm::radians(nAngle_)) * nTurnSpeed_;
 
 
-	if (x == 1 && currentVelX_ < maxSpeed_)
+	if (nXDir == 1 && nCurrentVelX_ < nMaxSpeed_)
 	{
-		currentVelX_ = currentVelX_ + acceleration_ < maxSpeed_ ? currentVelX_ + acceleration_ : maxSpeed_;
+		nCurrentVelX_ = nCurrentVelX_ + nAcceleration_ < nMaxSpeed_ ? nCurrentVelX_ + nAcceleration_ : nMaxSpeed_;
 	}
-	else if (x == -1 && currentVelX_ > -maxSpeed_)
+	else if (nXDir == -1 && nCurrentVelX_ > -nMaxSpeed_)
 	{
-		currentVelX_ = currentVelX_ - acceleration_ > -maxSpeed_ ? currentVelX_ - acceleration_ : -maxSpeed_;
+		nCurrentVelX_ = nCurrentVelX_ - nAcceleration_ > -nMaxSpeed_ ? nCurrentVelX_ - nAcceleration_ : -nMaxSpeed_;
 	}
 
-	if (y == 1 && currentVelY_ < maxSpeed_)
+	if (nYDir == 1 && nCurrentVelY_ < nMaxSpeed_)
 	{
-		currentVelY_ = currentVelY_ + acceleration_ < maxSpeed_ ? currentVelY_ + acceleration_ : maxSpeed_;
+		nCurrentVelY_ = nCurrentVelY_ + nAcceleration_ < nMaxSpeed_ ? nCurrentVelY_ + nAcceleration_ : nMaxSpeed_;
 	}
-	else if (y == -1 && currentVelY_ > -maxSpeed_)
+	else if (nYDir == -1 && nCurrentVelY_ > -nMaxSpeed_)
 	{
-		currentVelY_ = currentVelY_ - acceleration_ > -maxSpeed_ ? currentVelY_ - acceleration_ : -maxSpeed_;
+		nCurrentVelY_ = nCurrentVelY_ - nAcceleration_ > -nMaxSpeed_ ? nCurrentVelY_ - nAcceleration_ : -nMaxSpeed_;
 	}
 }
 
-sf::Actor* BoatActor::step(sf::Grid* grid)
+void BoatActor::setMaxSpeed(sf::s8 nMaxSpeed) 
+{ 
+	nMaxSpeed_ = nMaxSpeed;
+}
+
+void BoatActor::setAcceleration(sf::s8 nAcceleration) 
+{ 
+	nAcceleration_ = nAcceleration;
+}
+
+void BoatActor::setTurnSpeed(sf::s8 nTurnSpeed) 
+{ 
+	nTurnSpeed_ = nTurnSpeed;
+}
+
+sf::Actor* BoatActor::step(sf::Grid* gGrid)
 {
-	currentVelX_ = currentVelX_ > 0 ? currentVelX_ - 1 : currentVelX_ < 0 ? currentVelX_ + 1 : 0;
-	currentVelY_ = currentVelY_ > 0 ? currentVelY_ - 1 : currentVelY_ < 0 ? currentVelY_ + 1 : 0;
+	nCurrentVelX_ = nCurrentVelX_ > 0 ? nCurrentVelX_ - 1 : nCurrentVelX_ < 0 ? nCurrentVelX_ + 1 : 0;
+	nCurrentVelY_ = nCurrentVelY_ > 0 ? nCurrentVelY_ - 1 : nCurrentVelY_ < 0 ? nCurrentVelY_ + 1 : 0;
 
-	if (currentVelX_ || currentVelY_)
+	if (nCurrentVelX_ || nCurrentVelY_)
 	{
-		glm::vec2 velocity = { currentVelX_ * .1f, currentVelY_ * .1f };
-		glm::vec2 newPos = position_ + velocity;
-		grid->actorMoved(this, newPos);
+		glm::vec2 velocity = { nCurrentVelX_ * .1f, nCurrentVelY_ * .1f };
+		glm::vec2 newPos = vPosition_ + velocity;
+		gGrid->actorMoved(this, newPos);
 
-		position_ = newPos;
+		vPosition_ = newPos;
 
-		return grid->getCell(this).handleCollisions(this);
+		return gGrid->getCell(this).handleCollisions(this);
 	}
 	return nullptr;
 }

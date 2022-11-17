@@ -18,13 +18,13 @@ static std::vector< std::vector< sf::u8 > > vMapGrid{
 
 MyAmazingGame::~MyAmazingGame() 
 { 
-	if (grid_) delete grid_; 
-	if (boat_) delete boat_; 
-	if (boat2_) delete boat2_;
-	while (actors_.empty())
+	if (gMapGrid_) delete gMapGrid_; 
+	if (baBoat_) delete baBoat_; 
+	if (baBoatSec_) delete baBoatSec_;
+	while (lActors_.empty())
 	{
-		delete actors_.front();
-		actors_.pop_front();
+		delete lActors_.front();
+		lActors_.pop_front();
 	}
 }
 
@@ -32,56 +32,56 @@ void MyAmazingGame::preInit( sf::Framework< MyAmazingGame >& iFramework )
 {
 	iFramework.getTextureManager().registerTextureLoader< sf::TGATextureLoader >( "tga" );
 
-	grid_ = new sf::Grid(iFramework.getWindow().getWindowWidth(), iFramework.getWindow().getWindowHeight(), 64, 64);
+	gMapGrid_ = new sf::Grid(iFramework.getWindow().getWindowWidth(), iFramework.getWindow().getWindowHeight(), 64, 64);
 
-	boat_ = new sf::BoatActor(true);
-	boat_->setHeight(37);
-	boat_->setWidth(64);
-	boat_->setAngle(45.f);
-	boat_->setAcceleration(5);
-	boat_->setMaxSpeed(40);
-	boat_->setTurnSpeed(10);
-	boat_->setActorType(sf::ActorType::Ship);
+	baBoat_ = new sf::BoatActor(true);
+	baBoat_->setHeight(37);
+	baBoat_->setWidth(64);
+	baBoat_->setAngle(45.f);
+	baBoat_->setAcceleration(5);
+	baBoat_->setMaxSpeed(40);
+	baBoat_->setTurnSpeed(10);
+	baBoat_->setActorType(sf::ActorType::Ship);
 
 	if (bTwoPlayer_)
 	{
-		boat2_ = new sf::BoatActor(false);
-		boat2_->setHeight(37);
-		boat2_->setWidth(64);
-		boat2_->setAngle(-45.f);
-		boat2_->setAcceleration(5);
-		boat2_->setMaxSpeed(40);
-		boat2_->setTurnSpeed(10);
-		boat2_->setActorType(sf::ActorType::Ship);
+		baBoatSec_ = new sf::BoatActor(false);
+		baBoatSec_->setHeight(37);
+		baBoatSec_->setWidth(64);
+		baBoatSec_->setAngle(-45.f);
+		baBoatSec_->setAcceleration(5);
+		baBoatSec_->setMaxSpeed(40);
+		baBoatSec_->setTurnSpeed(10);
+		baBoatSec_->setActorType(sf::ActorType::Ship);
 	}
 
-	size_t mapGridHeight = vMapGrid.size();
-	size_t mapGridWidth = vMapGrid[0].size();
-	for ( sf::u8 nRow = 0; nRow < mapGridHeight; ++nRow )
+	size_t nMapGridHeight = vMapGrid.size();
+	size_t nMapGridWidth = vMapGrid[0].size();
+	for ( sf::u8 nRow = 0; nRow < nMapGridHeight; ++nRow )
 	{
-		for ( sf::u8 nTile = 0; nTile < mapGridWidth; ++nTile)
+		for ( sf::u8 nTile = 0; nTile < nMapGridWidth; ++nTile)
 		{
 			if ( vMapGrid[nRow][nTile] > 0 && vMapGrid[nRow][nTile] < 6 )
 			{
-				sf::Actor* actor = new sf::Actor();
-				actor->setType(vMapGrid[nRow][nTile]);
-				actor->setHeight(vMapGrid[nRow][nTile] == 5 ? 32 : 64);
-				actor->setWidth(vMapGrid[nRow][nTile] == 5 ? 32 : 64);
-				glm::vec2 pos = glm::vec2(nTile * 64 + 32, nRow * 64 + 32);
-				actor->setPosition(pos);
-				actor->setActorType(vMapGrid[nRow][nTile] == 5 ? sf::ActorType::Treasure : sf::ActorType::Obstacle);
-				grid_->addActorToCell(actor);
-				actors_.push_back(actor);
+				sf::Actor* aActor = new sf::Actor();
+				aActor->setType(vMapGrid[nRow][nTile]);
+				aActor->setHeight(vMapGrid[nRow][nTile] == 5 ? 32 : 64);
+				aActor->setWidth(vMapGrid[nRow][nTile] == 5 ? 32 : 64);
+				glm::vec2 vPos = glm::vec2(nTile * 64 + 32, nRow * 64 + 32);
+				aActor->setPosition(vPos);
+				aActor->setActorType(vMapGrid[nRow][nTile] == 5 ? sf::ActorType::Treasure : sf::ActorType::Obstacle);
+				gMapGrid_->addActorToCell(aActor);
+				lActors_.push_back(aActor);
 			}
 
 			if (vMapGrid[nRow][nTile] == 6)
 			{
-				boat_->setPosition(glm::vec2(nTile * 64, nRow * 64));
+				baBoat_->setPosition(glm::vec2(nTile * 64, nRow * 64));
 			}
 
 			if ( bTwoPlayer_ && vMapGrid[nRow][nTile] == 7)
 			{
-				boat2_->setPosition(glm::vec2(nTile * 64, nRow * 64));
+				baBoatSec_->setPosition(glm::vec2(nTile * 64, nRow * 64));
 			}
 		}
 	}
@@ -89,21 +89,19 @@ void MyAmazingGame::preInit( sf::Framework< MyAmazingGame >& iFramework )
 
 void MyAmazingGame::postInit( sf::Framework< MyAmazingGame >& iFramework )
 {
-	for (auto actor : actors_)
+	for (auto aActor : lActors_)
 	{
-		std::string sTextureTag = actor->getType() < 5 ? "tile" + std::to_string(actor->getType()) : "treasurechest" ;
-		actor->getSprite()->setTexture(iFramework.getTextureManager().getTexture( sTextureTag.c_str() ));
+		std::string sTextureTag = aActor->getType() < 5 ? "tile" + std::to_string(aActor->getType()) : "treasurechest" ;
+		aActor->getSprite()->setTexture(iFramework.getTextureManager().getTexture( sTextureTag.c_str() ));
 	}
-	boat_->getSprite()->setTexture( iFramework.getTextureManager().getTexture( "ship" ) );
+	baBoat_->getSprite()->setTexture( iFramework.getTextureManager().getTexture( "ship" ) );
 	
 	if (bTwoPlayer_)
 	{
-		boat2_->getSprite()->setTexture(iFramework.getTextureManager().getTexture("ship2"));
+		baBoatSec_->getSprite()->setTexture(iFramework.getTextureManager().getTexture("ship2"));
 	}
-
-	basePos_ = { iFramework.getWindow().getWindowWidth() / 2, iFramework.getWindow().getWindowHeight() / 2 };
 	spBackGround_.setTexture(iFramework.getTextureManager().getTexture("background"));
-	spBackGround_.setPosition(basePos_);
+	spBackGround_.setPosition({ iFramework.getWindow().getWindowWidth() / 2, iFramework.getWindow().getWindowHeight() / 2 });
 }
 
 void MyAmazingGame::step( sf::Framework< MyAmazingGame >& iFramework )
@@ -112,52 +110,68 @@ void MyAmazingGame::step( sf::Framework< MyAmazingGame >& iFramework )
 	glClear( GL_COLOR_BUFFER_BIT );
 
 	{
-		sf::Command* command = iFramework.getInputManager().handleInput(boat_, boat_->getPlayer());
+		sf::Command* command = iFramework.getInputManager().handleInput(baBoat_, baBoat_->getPlayer());
 		if (command)
 		{
 			command->execute();
-
 			delete command;
 		}
 	}
-	sf::Actor* actor = boat_->step(grid_);
+	sf::Actor* aActor = baBoat_->step(gMapGrid_);
 
-	if (actor)
+	if (aActor)
 	{
-		grid_->removeActor(actor);
-		std::list<sf::Actor*>::iterator findIter = std::find(actors_.begin(), actors_.end(), actor);
+		gMapGrid_->removeActor(aActor);
+		std::list<sf::Actor*>::iterator findIter = std::find(lActors_.begin(), lActors_.end(), aActor);
 		delete (*findIter);
-		actors_.erase(findIter);
+		lActors_.erase(findIter);
+
+		baBoat_->incrementScore();
 	}
 
 	if (bTwoPlayer_)
 	{
-		sf::Command* command = iFramework.getInputManager().handleInput(boat2_, boat2_->getPlayer());
+		sf::Command* command = iFramework.getInputManager().handleInput(baBoatSec_, baBoatSec_->getPlayer());
 		if (command)
 		{
 			command->execute();
-
 			delete command;
 		}
-		actor = boat2_->step(grid_);
+		aActor = baBoatSec_->step(gMapGrid_);
 
-		if (actor)
+		if (aActor)
 		{
-			grid_->removeActor(actor);
-			std::list<sf::Actor*>::iterator findIter = std::find(actors_.begin(), actors_.end(), actor);
+			gMapGrid_->removeActor(aActor);
+			std::list<sf::Actor*>::iterator findIter = std::find(lActors_.begin(), lActors_.end(), aActor);
 			delete (*findIter);
-			actors_.erase(findIter);
+			lActors_.erase(findIter);
+
+			baBoatSec_->incrementScore();
 		}
 	}
 
 	spBackGround_.render();
 
-	for (auto actor : actors_)
+	for (auto aActor : lActors_)
 	{
-		actor->render();
+		aActor->render();
 	}
 
-	boat_->render();
+	baBoat_->render();
 
-	if (bTwoPlayer_) boat2_->render();
+	if (bTwoPlayer_) baBoatSec_->render();
+}
+
+void MyAmazingGame::terminate()
+{
+	sf::u8 nScore = baBoat_->getScore();
+	std::string sScore = "Player One Score: " + std::to_string(nScore) + "\n";
+	SFLOG(sScore.c_str());
+
+	if (bTwoPlayer_)
+	{
+		nScore = baBoatSec_->getScore();
+		sScore = "Player Two Score: " + std::to_string(nScore) + "\n";
+		SFLOG(sScore.c_str());
+	}
 }
