@@ -1,1 +1,1 @@
-# client-homework-draft
+# CreyGames Boat Racing Game Homework

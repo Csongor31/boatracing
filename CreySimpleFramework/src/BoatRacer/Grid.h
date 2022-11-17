@@ -18,7 +18,7 @@ private:
 class Grid
 {
 public:
-	Grid(sf::u8 nMapSizeWidth, sf::u8 nMapSizeHeight, sf::u8 nTileSizeWidth, sf::u8 nTileSizeHeight) : tileWidth_(nTileSizeHeight), tileHeight_(nTileSizeHeight)
+	Grid(sf::u16 nMapSizeWidth, sf::u16 nMapSizeHeight, sf::u8 nTileSizeWidth, sf::u8 nTileSizeHeight) : tileWidth_(nTileSizeHeight), tileHeight_(nTileSizeHeight)
 	{
 		maxTileCountX_ = nMapSizeWidth / nTileSizeWidth;
 		maxTileCountY_ = nMapSizeHeight / nTileSizeHeight;
