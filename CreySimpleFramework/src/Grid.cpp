@@ -3,29 +3,30 @@
 namespace sf
 {
 
-void Cell::addActor(sf::Actor* actor)
-{ 
-	actors_.push_back(actor);
+sf::Actor* Cell::getActor()
+{
+	return actor_;
 }
-void Cell::removeActor(sf::Actor* actor)
+
+void Cell::setActor(sf::Actor* actor)
 { 
-	actors_.remove(actor);
+	actor_ = actor;
+}
+void Cell::removeActor()
+{ 
+	actor_ = nullptr;
 }
 
 Actor* Cell::handleCollisions(Actor* actorToCheck) const
 {
-	//hajok kivetelevel mindennek kor collisionje van
-
-	float actorMinX = actorToCheck->getPosition().x - (actorToCheck->getWidth() / 2);
-	float actorMinY = actorToCheck->getPosition().y - (actorToCheck->getHeight() / 2);
-
-	for (Actor* actor : actors_)
+	if (actor_)
 	{
-		if (actor == actorToCheck) continue;
+		float actorMinX = actorToCheck->getPosition().x - (actorToCheck->getWidth() / 2);
+		float actorMinY = actorToCheck->getPosition().y - (actorToCheck->getHeight() / 2);
 
 		//elforgatjuk a sprite-ot a hajonkhoz merten
-		float actorPosX = (glm::cos(glm::radians(-actorToCheck->getAngle())) * (actor->getPosition().x - actorToCheck->getPosition().x)) - (glm::sin(glm::radians(-actorToCheck->getAngle())) * (actor->getPosition().y - actorToCheck->getPosition().y)) + actorToCheck->getPosition().x;
-		float actorPosY = (glm::sin(glm::radians(-actorToCheck->getAngle())) * (actor->getPosition().x - actorToCheck->getPosition().x)) + (glm::cos(glm::radians(-actorToCheck->getAngle())) * (actor->getPosition().y - actorToCheck->getPosition().y)) + actorToCheck->getPosition().y;
+		float actorPosX = (glm::cos(glm::radians(-actorToCheck->getAngle())) * (actor_->getPosition().x - actorToCheck->getPosition().x)) - (glm::sin(glm::radians(-actorToCheck->getAngle())) * (actor_->getPosition().y - actorToCheck->getPosition().y)) + actorToCheck->getPosition().x;
+		float actorPosY = (glm::sin(glm::radians(-actorToCheck->getAngle())) * (actor_->getPosition().x - actorToCheck->getPosition().x)) + (glm::cos(glm::radians(-actorToCheck->getAngle())) * (actor_->getPosition().y - actorToCheck->getPosition().y)) + actorToCheck->getPosition().y;
 
 		float closestX = actorPosX;
 		float closestY = actorPosY;
@@ -48,20 +49,11 @@ Actor* Cell::handleCollisions(Actor* actorToCheck) const
 			closestY = actorMinY + actorToCheck->getHeight();
 		}
 		float distance = glm::distance(glm::vec2(actorPosX, actorPosY), glm::vec2(closestX, closestY));
-		if ( distance < actor->getWidth())
+		if (distance < actor_->getWidth())
 		{
-			std::string slog = "collision (ship x,y, angle; point x,y):";
-			slog += " " + std::to_string((int)actorToCheck->getPosition().x);
-			slog += " " + std::to_string((int)actorToCheck->getPosition().y);
-			slog += " " + std::to_string((int)actorToCheck->getAngle());
-			slog += " " + std::to_string((int)actor->getPosition().y);
-			slog += " " + std::to_string((int)actor->getPosition().y);
-			slog += "\n";
-			SFLOG(slog);
-			return actor;
+			return actor_;
 		}
 	}
-
 	return nullptr;
 }
 
@@ -78,7 +70,7 @@ void Grid::addActorToCell(Actor* actor)
 	int nCurrentTileX = actor->getPosition().x / tileWidth_;
 	int nCurrentTileY = actor->getPosition().y / tileHeight_;
 
-	cells_[nCurrentTileX][nCurrentTileY].addActor(actor);
+	cells_[nCurrentTileX][nCurrentTileY].setActor(actor);
 }
 
 bool Grid::actorMoved(Actor* movedActor, glm::vec2& vNewPos)
@@ -88,27 +80,52 @@ bool Grid::actorMoved(Actor* movedActor, glm::vec2& vNewPos)
 	int nCurrentTileX = movedActor->getPosition().x / tileWidth_;
 	int nCurrentTileY = movedActor->getPosition().y / tileHeight_;
 
-	//ha nekimegyunk a falnak ne engedjuk hogy kimenjunk a palyarol, akar lehetne szolni a hogy tortenjen valami negativ
+	//ellenorizzuk, hogy belephetunk e a cellaba
+	//letezik-e olyan cella
+	//van-e sziget abban a cellaban
 	if (nNewTileX >= maxTileCountX_)
 	{
 		vNewPos.x = maxTileCountX_ * tileWidth_ - 1;
 	}
-	else if (vNewPos.x < 0)
+	if (vNewPos.x < 0)
 	{
 		vNewPos.x = 0;
 	}
-	else if (nNewTileY >= maxTileCountY_)
+	if (nNewTileY >= maxTileCountY_)
 	{
 		vNewPos.y = maxTileCountY_ * tileHeight_ - 1;
 	}
-	else if (vNewPos.y < 0)
+	if (vNewPos.y < 0)
 	{
 		vNewPos.y = 0;
 	}
-	else if (nNewTileX != nCurrentTileX || nNewTileY != nCurrentTileY)
+	
+	if (maxTileCountX_ > nNewTileX && maxTileCountY_ > nNewTileY)
 	{
-		cells_[nCurrentTileX][nCurrentTileY].removeActor(movedActor);
-		cells_[nNewTileX][nNewTileY].addActor(movedActor);
+		sf::Actor* actorInCell = cells_[nNewTileX][nNewTileY].getActor();
+
+		if (actorInCell)
+		{
+			if (actorInCell->getActorType() == sf::ActorType::Obstacle)
+			{
+				if (nNewTileX > nCurrentTileX)
+				{
+					vNewPos.x = nNewTileX * tileWidth_ - 1;
+				}
+				if (nNewTileX < nCurrentTileX)
+				{
+					vNewPos.x = (nCurrentTileX)*tileWidth_;
+				}
+				if (nNewTileY > nCurrentTileY)
+				{
+					vNewPos.y = nNewTileY * tileHeight_ - 1;
+				}
+				if (nNewTileY < nCurrentTileY)
+				{
+					vNewPos.y = (nCurrentTileY)*tileHeight_;
+				}
+			}
+		}
 	}
 	return true;
 }

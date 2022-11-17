@@ -10,6 +10,11 @@ void InputManager::registerInputTag( const sf::InputTag& iInputTag )
 
 void InputManager::setMousePosition( const glm::vec2& iPos )
 {
+	std::string slog = "mousepos(x,y):";
+	slog += " " + std::to_string((int)iPos.x);
+	slog += " " + std::to_string((int)iPos.y);
+	slog += "\n";
+	SFLOG(slog);
 	mousePos_ = iPos;
 }
 

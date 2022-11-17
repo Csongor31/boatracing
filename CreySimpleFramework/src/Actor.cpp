@@ -12,12 +12,32 @@ float Actor::getAngle() const
 	return angle_;
 }
 
+void Actor::setActorType(sf::ActorType actorType)
+{
+	actorType_ = actorType;
+}
+
+sf::ActorType Actor::getActorType() const
+{
+	return actorType_;
+}
+
+void Actor::setType(const sf::u8 type)
+{
+	type_ = type;
+}
+
+sf::u8 Actor::getType() const
+{
+	return type_;
+}
+
 void Actor::setWidth(const sf::u8 width)
 {
 	width_ = width;
 }
 
-float Actor::getWidth() const
+sf::u8 Actor::getWidth() const
 {
 	return width_;
 }
@@ -27,7 +47,7 @@ void Actor::setHeight(const sf::u8 height)
 	height_ = height;
 }
 
-float Actor::getHeight() const
+sf::u8 Actor::getHeight() const
 {
 	return height_;
 }

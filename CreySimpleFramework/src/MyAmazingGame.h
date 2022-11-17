@@ -4,7 +4,7 @@ class MyAmazingGame
 {
 public:
 	MyAmazingGame() = default;
-	~MyAmazingGame() { if (grid_) delete grid_; if (boat_) delete boat_; if (spRotatingObject_) delete spRotatingObject_; if (spBoom_) delete spBoom_; };
+	~MyAmazingGame();
 
 public:
 	void preInit( sf::Framework< MyAmazingGame >& iFramework );
@@ -17,7 +17,6 @@ private:
 	glm::vec2 basePos_;
 	sf::Grid* grid_;
 	sf::BoatActor* boat_;
-	sf::Sprite* spRotatingObject_;
-	sf::Sprite* spBoom_;
+	std::list < sf::Actor* > actors_;
 	sf::Sprite spBackGround_;
 };

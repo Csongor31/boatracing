@@ -6,18 +6,15 @@ namespace sf
 class Cell
 {
 public:
-	void addActor(sf::Actor* actor);
-	void removeActor(sf::Actor* actor);
+	sf::Actor* getActor();
+	void setActor(sf::Actor* actor);
+	void removeActor();
 	Actor* handleCollisions(Actor* actorToCheck) const;
 
 private:
-	std::list<sf::Actor*> actors_; //listaban tarolom az elemeket a gyorsabb kiszedegetes erdekeben
+	sf::Actor* actor_; //listaban tarolom az elemeket a gyorsabb kiszedegetes erdekeben
 };
 
-//spatial partition grid
-//csak a hajok mozognak, ezert felosztom a palyat mezokre es mindig csak a hajok cellajaban vegzek utkozes vizsgalatot
-// palyakat ugy rendezem, hogy a hajo meretetol fuggoen ne legyenek a sarkokon akadalyok
-//ezaltal remelhetoleg kevesebb utkozest kell megnezi
 class Grid
 {
 public:
