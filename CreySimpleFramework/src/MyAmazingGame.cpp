@@ -35,8 +35,8 @@ void MyAmazingGame::preInit( sf::Framework< MyAmazingGame >& iFramework )
 	grid_ = new sf::Grid(iFramework.getWindow().getWindowWidth(), iFramework.getWindow().getWindowHeight(), 64, 64);
 
 	boat_ = new sf::BoatActor(true);
-	boat_->setWidth(65);
-	boat_->setWidth(105);
+	boat_->setHeight(37);
+	boat_->setWidth(64);
 	boat_->setAngle(45.f);
 	boat_->setAcceleration(5);
 	boat_->setMaxSpeed(40);
@@ -46,8 +46,8 @@ void MyAmazingGame::preInit( sf::Framework< MyAmazingGame >& iFramework )
 	if (bTwoPlayer_)
 	{
 		boat2_ = new sf::BoatActor(false);
-		boat2_->setWidth(65);
-		boat2_->setWidth(105);
+		boat2_->setHeight(37);
+		boat2_->setWidth(64);
 		boat2_->setAngle(-45.f);
 		boat2_->setAcceleration(5);
 		boat2_->setMaxSpeed(40);
@@ -65,8 +65,8 @@ void MyAmazingGame::preInit( sf::Framework< MyAmazingGame >& iFramework )
 			{
 				sf::Actor* actor = new sf::Actor();
 				actor->setType(vMapGrid[nRow][nTile]);
-				actor->setHeight(64);
-				actor->setWidth(64);
+				actor->setHeight(vMapGrid[nRow][nTile] == 5 ? 32 : 64);
+				actor->setWidth(vMapGrid[nRow][nTile] == 5 ? 32 : 64);
 				glm::vec2 pos = glm::vec2(nTile * 64 + 32, nRow * 64 + 32);
 				actor->setPosition(pos);
 				actor->setActorType(vMapGrid[nRow][nTile] == 5 ? sf::ActorType::Treasure : sf::ActorType::Obstacle);

@@ -58,34 +58,34 @@ Actor* Cell::handleCollisions(Actor* actorToCheck) const
 
 const Cell& Grid::getCell(Actor* spSprite)
 {
-	sf::s8 nCurrentTileX = (sf::u16) spSprite->getPosition().x / tileWidth_;
-	sf::s8 nCurrentTileY = (sf::u16) spSprite->getPosition().y / tileHeight_;
+	sf::s8 nCurrentTileX = (sf::u8) ( spSprite->getPosition().x / tileWidth_ );
+	sf::s8 nCurrentTileY = (sf::u8) ( spSprite->getPosition().y / tileHeight_ );
 
 	return cells_[nCurrentTileX][nCurrentTileY];
 }
 
 void Grid::addActorToCell(Actor* actor)
 {
-	sf::u8 nCurrentTileX = (sf::u16) actor->getPosition().x / tileWidth_;
-	sf::u8 nCurrentTileY = (sf::u16) actor->getPosition().y / tileHeight_;
+	sf::u8 nCurrentTileX = (sf::u8) ( actor->getPosition().x / tileWidth_ );
+	sf::u8 nCurrentTileY = (sf::u8) ( actor->getPosition().y / tileHeight_ );
 
 	cells_[nCurrentTileX][nCurrentTileY].setActor(actor);
 }
 
 void Grid::removeActor(Actor* actor)
 {
-	sf::u8 nCurrentTileX = (sf::u16) actor->getPosition().x / tileWidth_;
-	sf::u8 nCurrentTileY = (sf::u16) actor->getPosition().y / tileHeight_;
+	sf::u8 nCurrentTileX = (sf::u8) ( actor->getPosition().x / tileWidth_ );
+	sf::u8 nCurrentTileY = (sf::u8) ( actor->getPosition().y / tileHeight_ );
 
 	cells_[nCurrentTileX][nCurrentTileY].removeActor();
 };
 
 bool Grid::actorMoved(Actor* movedActor, glm::vec2& vNewPos)
 {
-	sf::u8 nNewTileX = (sf::u16) vNewPos.x / tileWidth_;
-	sf::u8 nNewTileY = (sf::u16) vNewPos.y / tileHeight_;
-	sf::u8 nCurrentTileX = (sf::u16) movedActor->getPosition().x / tileWidth_;
-	sf::u8 nCurrentTileY = (sf::u16) movedActor->getPosition().y / tileHeight_;
+	sf::u8 nNewTileX = (sf::u8) (vNewPos.x / tileWidth_);
+	sf::u8 nNewTileY = (sf::u8) (vNewPos.y / tileHeight_);
+	sf::u8 nCurrentTileX = (sf::u8) ( movedActor->getPosition().x / tileWidth_ );
+	sf::u8 nCurrentTileY = (sf::u8) ( movedActor->getPosition().y / tileHeight_ );
 
 	if (nNewTileX >= maxTileCountX_)
 	{
