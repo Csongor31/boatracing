@@ -15,7 +15,6 @@ void Cell::removeActor(sf::Actor* actor)
 Actor* Cell::handleCollisions(Actor* actorToCheck) const
 {
 	//hajok kivetelevel mindennek kor collisionje van
-	//ezt tulgondoltam, nem is biztos, hogy kell
 
 	float actorMinX = actorToCheck->getPosition().x - (actorToCheck->getWidth() / 2);
 	float actorMinY = actorToCheck->getPosition().y - (actorToCheck->getHeight() / 2);

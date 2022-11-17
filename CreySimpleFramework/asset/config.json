@@ -2,8 +2,8 @@
 	"window" : 
 	{
 		"title" : "Crey Simple Framework",
-		"width" : 800,
-		"height" : 800
+		"width" : 1280,
+		"height" : 768
 	},
 
 	"input" :
@@ -23,11 +23,7 @@
 	[
 		{ "tag" : "hornet", "file" : "asset/textures/hornet.tga" },
 		{ "tag" : "ship", "file" : "asset/textures/ship.tga" },
-		{ "tag" : "layer01", "file" : "asset/textures/layer01.tga" },
-		{ "tag" : "layer02", "file" : "asset/textures/layer02.tga" },
-		{ "tag" : "layer03", "file" : "asset/textures/layer03.tga" },
-		{ "tag" : "layer04", "file" : "asset/textures/layer04.tga" },
-		{ "tag" : "layer05", "file" : "asset/textures/layer05.tga" },
+		{ "tag" : "background", "file" : "asset/textures/background.tga" },
 		{ "tag" : "boom", "file" : "asset/textures/boom.tga" }
-	]
+	]	
 }

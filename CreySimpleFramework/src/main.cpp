@@ -29,7 +29,6 @@
 #include "TGATextureLoader.cpp"
 #include "TextureManager.cpp"
 #include "InputManager.cpp"
-#include "ActorManager.cpp"
 #include "Framework.cpp"
 #include "MyAmazingGame.cpp"
 
