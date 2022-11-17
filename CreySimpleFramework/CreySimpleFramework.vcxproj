@@ -102,7 +102,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-	<ClCompile Include="src\Actor.cpp">
+    <ClCompile Include="src\Actor.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -110,15 +110,11 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="src\BoatSprite.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="src\Texture.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-	<ClCompile Include="src\BoatActor.cpp">
+    <ClCompile Include="src\BoatActor.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -142,9 +138,8 @@
     <ClInclude Include="src\InputManager.h" />
     <ClInclude Include="src\MyAmazingGame.h" />
     <ClInclude Include="src\Sprite.h" />
-	<ClInclude Include="src\Actor.h" />
+    <ClInclude Include="src\Actor.h" />
     <ClInclude Include="src\Grid.h" />
-    <ClInclude Include="src\BoatSprite.h" />
     <ClInclude Include="src\BoatActor.h" />
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\TextureLoaderBase.h" />

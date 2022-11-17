@@ -7,7 +7,7 @@ void MyAmazingGame::preInit( sf::Framework< MyAmazingGame >& iFramework )
 
 void MyAmazingGame::postInit( sf::Framework< MyAmazingGame >& iFramework )
 {
-	grid_ = new sf::Grid( iFramework.getWindow().getWindowWidth(), iFramework.getWindow().getWindowHeight(), 200, 200 );
+	grid_ = new sf::Grid( iFramework.getWindow().getWindowWidth(), iFramework.getWindow().getWindowHeight(), 128, 128 );
 	spRotatingObject_ = new sf::Sprite();
 	spBoom_ = new sf::Sprite();
 	boat_ = new sf::BoatActor();
@@ -25,6 +25,7 @@ void MyAmazingGame::postInit( sf::Framework< MyAmazingGame >& iFramework )
 	spBoat2_->setAcceleration(8);
 	spBoat2_->setMaxSpeed(40);
 	spBoat2_->setTurnSpeed(5);*/
+
 	spBoom_->setTexture( iFramework.getTextureManager().getTexture( "boom" ), 4, 1 );
 
 	spRotatingObject_->setTexture( iFramework.getTextureManager().getTexture( "hornet" ) );
@@ -32,6 +33,10 @@ void MyAmazingGame::postInit( sf::Framework< MyAmazingGame >& iFramework )
 
 	basePos_ = { iFramework.getWindow().getWindowWidth() / 2, iFramework.getWindow().getWindowHeight() / 2 };
 	boat_->setPosition(basePos_);
+
+	spBackGround_.setTexture(iFramework.getTextureManager().getTexture("background"));
+	spBackGround_.setPosition(basePos_);
+
 	//spBoat2_->setPosition( basePos_ + glm::vec2(100.0f, 0.0f));
 	spBoom_->setPosition( basePos_ + glm::vec2( 100.0f, 0.0f ) );
 
@@ -65,6 +70,8 @@ void MyAmazingGame::step( sf::Framework< MyAmazingGame >& iFramework )
 
 	boat_->step(grid_);
 	spRotatingObject_->setAngle( spRotatingObject_->getAngle() + 0.5f );
+
+	spBackGround_.render();
 
 	static sf::u32 frameCnt = 0;
 	++frameCnt;

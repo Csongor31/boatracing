@@ -19,4 +19,5 @@ private:
 	sf::BoatActor* boat_;
 	sf::Sprite* spRotatingObject_;
 	sf::Sprite* spBoom_;
+	sf::Sprite spBackGround_;
 };

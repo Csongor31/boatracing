@@ -42,9 +42,6 @@
     <ClCompile Include="src\Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BoatSprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -88,9 +85,6 @@
     </ClInclude>
     <ClInclude Include="src\Sprite.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\BoatSprite.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Command.h">
       <Filter>Header Files</Filter>
