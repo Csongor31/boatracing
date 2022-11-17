@@ -1,16 +1,16 @@
 #pragma once
 
-namespace sf 
+namespace sf
 {
-class BoatSprite : public sf::Sprite, public sf::MoveDirectionCommandReceiver
+class BoatActor : public sf::Actor, public sf::MoveDirectionCommandReceiver
 {
 public:
-	BoatSprite() = default;
-	~BoatSprite() = default;
-	
+	BoatActor() = default;
+	~BoatActor() = default;
+
 	//kiszamolja, hogy melyik iranyban mekkora sebesseggel kene mennie
 	void moveDir(sf::s8 x, sf::s8 y) override;
-	sf::Command* step(sf::Grid* grid);
+	sf::Command* step(sf::Grid * grid);
 
 	void setMaxSpeed(sf::s8 maxSpeed) { maxSpeed_ = maxSpeed; }
 	void setAcceleration(sf::s8 acceleration) { acceleration_ = acceleration; }

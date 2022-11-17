@@ -20,10 +20,11 @@
 
 #include "Texture.cpp"
 #include "CommandReciever.h"
-#include "Command.h"
+#include "Command.cpp"
 #include "Sprite.cpp"
+#include "Actor.cpp"
 #include "Grid.cpp"
-#include "BoatSprite.cpp"
+#include "BoatActor.cpp"
 #include "TextureLoaderBase.cpp"
 #include "TGATextureLoader.cpp"
 #include "TextureManager.cpp"

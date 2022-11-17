@@ -32,7 +32,6 @@ protected:
 	sf::s32			tileX_;
 	sf::s32			tileY_;
 	glm::vec2		position_;
-	glm::vec2		 vel_;
 };
 
 }

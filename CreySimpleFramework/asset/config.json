@@ -22,6 +22,7 @@
 	"textures" :
 	[
 		{ "tag" : "hornet", "file" : "asset/textures/hornet.tga" },
+		{ "tag" : "ship", "file" : "asset/textures/ship.tga" },
 		{ "tag" : "layer01", "file" : "asset/textures/layer01.tga" },
 		{ "tag" : "layer02", "file" : "asset/textures/layer02.tga" },
 		{ "tag" : "layer03", "file" : "asset/textures/layer03.tga" },
