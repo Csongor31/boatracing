@@ -85,11 +85,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Framework.cpp">
+    <ClCompile Include="src\CreySimpleFramework\Framework.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="src\InputManager.cpp">
+    <ClCompile Include="src\CreySimpleFramework\InputManager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -98,56 +98,60 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="src\Sprite.cpp">
+    <ClCompile Include="src\CreySimpleFramework\Sprite.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="src\Actor.cpp">
+    <ClCompile Include="src\BoatRacer\Actor.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="src\Grid.cpp">
+    <ClCompile Include="src\BoatRacer\Grid.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="src\Texture.cpp">
+    <ClCompile Include="src\CreySimpleFramework\Texture.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="src\BoatActor.cpp">
+    <ClCompile Include="src\BoatRacer\BoatActor.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="src\TextureLoaderBase.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="src\TGATextureLoader.cpp">
+	 <ClCompile Include="src\BoatRacer\Command.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="src\TextureManager.cpp">
+    <ClCompile Include="src\CreySimpleFramework\TextureLoaderBase.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\CreySimpleFramework\TGATextureLoader.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\CreySimpleFramework\TextureManager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\CommandReciever.h" />
-    <ClInclude Include="src\Command.h" />
-    <ClInclude Include="src\Framework.h" />
-    <ClInclude Include="src\InputManager.h" />
+    <ClInclude Include="src\BoatRacer\CommandReciever.h" />
+    <ClInclude Include="src\BoatRacer\Command.h" />
+    <ClInclude Include="src\CreySimpleFramework\Framework.h" />
+    <ClInclude Include="src\CreySimpleFramework\InputManager.h" />
     <ClInclude Include="src\MyAmazingGame.h" />
-    <ClInclude Include="src\Sprite.h" />
-    <ClInclude Include="src\Actor.h" />
-    <ClInclude Include="src\Grid.h" />
-    <ClInclude Include="src\BoatActor.h" />
-    <ClInclude Include="src\Texture.h" />
-    <ClInclude Include="src\TextureLoaderBase.h" />
-    <ClInclude Include="src\TextureManager.h" />
-    <ClInclude Include="src\TGATextureLoader.h" />
-    <ClInclude Include="src\Types.h" />
-    <ClInclude Include="src\Utils.h" />
-    <ClInclude Include="src\Window.h" />
+    <ClInclude Include="src\CreySimpleFramework\Sprite.h" />
+    <ClInclude Include="src\BoatRacer\Actor.h" />
+    <ClInclude Include="src\BoatRacer\Grid.h" />
+    <ClInclude Include="src\BoatRacer\BoatActor.h" />
+    <ClInclude Include="src\CreySimpleFramework\Texture.h" />
+    <ClInclude Include="src\CreySimpleFramework\TextureLoaderBase.h" />
+    <ClInclude Include="src\CreySimpleFramework\TextureManager.h" />
+    <ClInclude Include="src\CreySimpleFramework\TGATextureLoader.h" />
+    <ClInclude Include="src\CreySimpleFramework\Types.h" />
+    <ClInclude Include="src\CreySimpleFramework\Utils.h" />
+    <ClInclude Include="src\CreySimpleFramework\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

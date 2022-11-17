@@ -24,7 +24,6 @@ Actor* Cell::handleCollisions(Actor* actorToCheck) const
 		float actorMinX = actorToCheck->getPosition().x - (actorToCheck->getWidth() / 2);
 		float actorMinY = actorToCheck->getPosition().y - (actorToCheck->getHeight() / 2);
 
-		//elforgatjuk a sprite-ot a hajonkhoz merten
 		float actorPosX = (glm::cos(glm::radians(-actorToCheck->getAngle())) * (actor_->getPosition().x - actorToCheck->getPosition().x)) - (glm::sin(glm::radians(-actorToCheck->getAngle())) * (actor_->getPosition().y - actorToCheck->getPosition().y)) + actorToCheck->getPosition().x;
 		float actorPosY = (glm::sin(glm::radians(-actorToCheck->getAngle())) * (actor_->getPosition().x - actorToCheck->getPosition().x)) + (glm::cos(glm::radians(-actorToCheck->getAngle())) * (actor_->getPosition().y - actorToCheck->getPosition().y)) + actorToCheck->getPosition().y;
 
@@ -59,41 +58,38 @@ Actor* Cell::handleCollisions(Actor* actorToCheck) const
 
 const Cell& Grid::getCell(Actor* spSprite)
 {
-	int nCurrentTileX = spSprite->getPosition().x / tileWidth_;
-	int nCurrentTileY = spSprite->getPosition().y / tileHeight_;
+	sf::s8 nCurrentTileX = (sf::u16) spSprite->getPosition().x / tileWidth_;
+	sf::s8 nCurrentTileY = (sf::u16) spSprite->getPosition().y / tileHeight_;
 
 	return cells_[nCurrentTileX][nCurrentTileY];
 }
 
 void Grid::addActorToCell(Actor* actor)
 {
-	int nCurrentTileX = actor->getPosition().x / tileWidth_;
-	int nCurrentTileY = actor->getPosition().y / tileHeight_;
+	sf::u8 nCurrentTileX = (sf::u16) actor->getPosition().x / tileWidth_;
+	sf::u8 nCurrentTileY = (sf::u16) actor->getPosition().y / tileHeight_;
 
 	cells_[nCurrentTileX][nCurrentTileY].setActor(actor);
 }
 
 void Grid::removeActor(Actor* actor)
 {
-	int nCurrentTileX = actor->getPosition().x / tileWidth_;
-	int nCurrentTileY = actor->getPosition().y / tileHeight_;
+	sf::u8 nCurrentTileX = (sf::u16) actor->getPosition().x / tileWidth_;
+	sf::u8 nCurrentTileY = (sf::u16) actor->getPosition().y / tileHeight_;
 
 	cells_[nCurrentTileX][nCurrentTileY].removeActor();
 };
 
 bool Grid::actorMoved(Actor* movedActor, glm::vec2& vNewPos)
 {
-	int nNewTileX = vNewPos.x / tileWidth_;
-	int nNewTileY = vNewPos.y / tileHeight_;
-	int nCurrentTileX = movedActor->getPosition().x / tileWidth_;
-	int nCurrentTileY = movedActor->getPosition().y / tileHeight_;
+	sf::u8 nNewTileX = (sf::u16) vNewPos.x / tileWidth_;
+	sf::u8 nNewTileY = (sf::u16) vNewPos.y / tileHeight_;
+	sf::u8 nCurrentTileX = (sf::u16) movedActor->getPosition().x / tileWidth_;
+	sf::u8 nCurrentTileY = (sf::u16) movedActor->getPosition().y / tileHeight_;
 
-	//ellenorizzuk, hogy belephetunk e a cellaba
-	//letezik-e olyan cella
-	//van-e sziget abban a cellaban
 	if (nNewTileX >= maxTileCountX_)
 	{
-		vNewPos.x = maxTileCountX_ * tileWidth_ - 1;
+		vNewPos.x = (float) maxTileCountX_ * tileWidth_ - 1;
 	}
 	if (vNewPos.x < 0)
 	{
@@ -101,7 +97,7 @@ bool Grid::actorMoved(Actor* movedActor, glm::vec2& vNewPos)
 	}
 	if (nNewTileY >= maxTileCountY_)
 	{
-		vNewPos.y = maxTileCountY_ * tileHeight_ - 1;
+		vNewPos.y = (float) maxTileCountY_ * tileHeight_ - 1;
 	}
 	if (vNewPos.y < 0)
 	{
@@ -118,19 +114,19 @@ bool Grid::actorMoved(Actor* movedActor, glm::vec2& vNewPos)
 			{
 				if (nNewTileX > nCurrentTileX)
 				{
-					vNewPos.x = nNewTileX * tileWidth_ - 1;
+					vNewPos.x = (float) nNewTileX * tileWidth_ - 1;
 				}
 				if (nNewTileX < nCurrentTileX)
 				{
-					vNewPos.x = (nCurrentTileX)*tileWidth_;
+					vNewPos.x = (float) nCurrentTileX * tileWidth_;
 				}
 				if (nNewTileY > nCurrentTileY)
 				{
-					vNewPos.y = nNewTileY * tileHeight_ - 1;
+					vNewPos.y = (float) nNewTileY * tileHeight_ - 1;
 				}
 				if (nNewTileY < nCurrentTileY)
 				{
-					vNewPos.y = (nCurrentTileY)*tileHeight_;
+					vNewPos.y = (float) nCurrentTileY * tileHeight_;
 				}
 			}
 		}

@@ -7,7 +7,7 @@ static sf::u8 nextId_ = 0;
 class CommandReceiver 
 {
 public:
-	CommandReceiver() { id_ == (++nextId_);  }
+	CommandReceiver() { id_ = (++nextId_);  }
 	virtual ~CommandReceiver() {};
 	bool operator==( const CommandReceiver& rhs ) { return (*this).getId() == rhs.getId(); }
 

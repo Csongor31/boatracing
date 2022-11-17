@@ -13,8 +13,6 @@ enum CommandTypes
 };
 
 class CommandReceiver;
-
-//Command class, segit multiplayerben es replayben
 class Command
 {
 public:
@@ -26,7 +24,6 @@ protected:
 	sf::CommandTypes commandType_;
 };
 
-//move command, iranyt adva elmegy a receiver abba az iranyba
 class MoveCommand : public Command
 {
 public:

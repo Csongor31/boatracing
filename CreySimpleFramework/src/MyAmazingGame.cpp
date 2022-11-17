@@ -55,8 +55,8 @@ void MyAmazingGame::preInit( sf::Framework< MyAmazingGame >& iFramework )
 		boat2_->setActorType(sf::ActorType::Ship);
 	}
 
-	sf::u8 mapGridHeight = vMapGrid.size();
-	sf::u8 mapGridWidth = vMapGrid[0].size();
+	size_t mapGridHeight = vMapGrid.size();
+	size_t mapGridWidth = vMapGrid[0].size();
 	for ( sf::u8 nRow = 0; nRow < mapGridHeight; ++nRow )
 	{
 		for ( sf::u8 nTile = 0; nTile < mapGridWidth; ++nTile)
@@ -104,7 +104,6 @@ void MyAmazingGame::postInit( sf::Framework< MyAmazingGame >& iFramework )
 	basePos_ = { iFramework.getWindow().getWindowWidth() / 2, iFramework.getWindow().getWindowHeight() / 2 };
 	spBackGround_.setTexture(iFramework.getTextureManager().getTexture("background"));
 	spBackGround_.setPosition(basePos_);
-
 }
 
 void MyAmazingGame::step( sf::Framework< MyAmazingGame >& iFramework )

@@ -18,18 +18,18 @@ private:
 class Grid
 {
 public:
-	Grid(sf::u32 nMapSizeWidth, sf::u32 nMapSizeHeight, sf::u32 nTileSizeWidth, sf::u32 nTileSizeHeight) : tileWidth_(nTileSizeHeight), tileHeight_(nTileSizeHeight)
+	Grid(sf::u8 nMapSizeWidth, sf::u8 nMapSizeHeight, sf::u8 nTileSizeWidth, sf::u8 nTileSizeHeight) : tileWidth_(nTileSizeHeight), tileHeight_(nTileSizeHeight)
 	{
 		maxTileCountX_ = nMapSizeWidth / nTileSizeWidth;
 		maxTileCountY_ = nMapSizeHeight / nTileSizeHeight;
 
 		cells_.reserve(maxTileCountX_);
-		sf::s8 nRow = 0;
+		sf::u8 nRow = 0;
 		while (nRow < maxTileCountX_)
 		{
 			std::vector<sf::Cell> row;
 			row.reserve(maxTileCountY_);
-			sf::s8 nTile = 0;
+			sf::u8 nTile = 0;
 			while (nTile < maxTileCountY_)
 			{
 				row.push_back(sf::Cell());
@@ -43,14 +43,14 @@ public:
 	const Cell& getCell(Actor* actor);
 	void addActorToCell(Actor* actor);
 	void removeActor(Actor* actor);
-	bool actorMoved(Actor* movedActor, glm::vec2& vNewPos); //hajo uj cellajat megadjuk, illetve elvegzi a sarkok vizsgalatat
+	bool actorMoved(Actor* movedActor, glm::vec2& vNewPos);
 
 private:
 	std::vector<std::vector<Cell> > cells_;
-	sf::u32 tileWidth_;
-	sf::u32 tileHeight_;
-	sf::s8 maxTileCountX_;
-	sf::s8 maxTileCountY_;
+	sf::u8 tileWidth_;
+	sf::u8 tileHeight_;
+	sf::u8 maxTileCountX_;
+	sf::u8 maxTileCountY_;
 };
 }
 

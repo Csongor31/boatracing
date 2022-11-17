@@ -16,8 +16,6 @@ public:
 	void			setTile( const sf::s32 iTileX, const sf::s32 iTileY );
 	void 			setAngle( const float iAngleInDegrees );
 	float			getAngle() const;
-	float			getWidth() const;
-	float			getHeight() const;
 	void			setRenderFlag( const sf::RenderFlag iRenderFlag );
 	void 			setPosition( const glm::vec2 iPosition );
 	glm::vec2 		getPosition() const;
