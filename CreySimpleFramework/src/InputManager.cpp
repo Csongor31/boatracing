@@ -79,12 +79,12 @@ const bool InputManager::isReleased( const sf::InputTag& iTag ) const
 	return false;
 }
 
-sf::Command* InputManager::handleInput(sf::CommandReceiver* receiver)
+sf::Command* InputManager::handleInput(sf::CommandReceiver* receiver, bool bPlayerOne )
 {
 	sf::Command* command = nullptr;
 	sf::CommandTypes commandType = sf::CommandTypes::NOCOMMAND;
 
-	if ( receiver->GetPlayer() )
+	if (bPlayerOne)
 	{
 		if ( isPressed("left") || isRepeat("left") )
 		{

@@ -11,7 +11,7 @@ enum ActorType {
 class Actor : virtual public sf::CommandReceiver
 {
 public:
-	Actor() { sprite_ = std::make_unique<sf::Sprite>(); }
+	Actor() : sf::CommandReceiver() { sprite_ = std::make_unique<sf::Sprite>(); }
 
 	Sprite* getSprite() { return sprite_.get(); }
 

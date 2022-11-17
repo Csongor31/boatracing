@@ -42,6 +42,7 @@ public:
 
 	const Cell& getCell(Actor* actor);
 	void addActorToCell(Actor* actor);
+	void removeActor(Actor* actor);
 	bool actorMoved(Actor* movedActor, glm::vec2& vNewPos); //hajo uj cellajat megadjuk, illetve elvegzi a sarkok vizsgalatat
 
 private:

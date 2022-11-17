@@ -2,17 +2,18 @@
 
 namespace sf
 {
-//commandokat lehet neki adni, playert is ezen keresztul tartjuk szamon
+static sf::u8 nextId_ = 0;
+
 class CommandReceiver 
 {
 public:
+	CommandReceiver() { id_ == (++nextId_);  }
 	virtual ~CommandReceiver() {};
-	bool GetPlayer() { return player_; }
-	void setPlayer(bool bPlayer) { player_ = bPlayer; }
-	sf::u8 getId() { return id_; }
+	bool operator==( const CommandReceiver& rhs ) { return (*this).getId() == rhs.getId(); }
+
+	sf::u8 getId() const { return id_; }
 
 protected:
-	bool player_ = true;
 	sf::u8 id_;
 };
 

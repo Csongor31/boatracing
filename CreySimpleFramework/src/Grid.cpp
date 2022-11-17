@@ -73,6 +73,14 @@ void Grid::addActorToCell(Actor* actor)
 	cells_[nCurrentTileX][nCurrentTileY].setActor(actor);
 }
 
+void Grid::removeActor(Actor* actor)
+{
+	int nCurrentTileX = actor->getPosition().x / tileWidth_;
+	int nCurrentTileY = actor->getPosition().y / tileHeight_;
+
+	cells_[nCurrentTileX][nCurrentTileY].removeActor();
+};
+
 bool Grid::actorMoved(Actor* movedActor, glm::vec2& vNewPos)
 {
 	int nNewTileX = vNewPos.x / tileWidth_;

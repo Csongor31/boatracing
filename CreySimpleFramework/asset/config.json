@@ -22,6 +22,7 @@
 	"textures" :
 	[
 		{ "tag" : "ship", "file" : "asset/textures/ship.tga" },
+		{ "tag" : "ship2", "file" : "asset/textures/ship2.tga" },
 		{ "tag" : "background", "file" : "asset/textures/background.tga" },
 		{ "tag" : "tile1", "file" : "asset/textures/tile1.tga" },
 		{ "tag" : "tile2", "file" : "asset/textures/tile2.tga" },

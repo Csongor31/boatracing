@@ -15,7 +15,7 @@ public:
 	void setMousePosition( const glm::vec2& iPos );
 	void step();
 
-	sf::Command* handleInput( sf::CommandReceiver* receiver);
+	sf::Command* handleInput( sf::CommandReceiver* receiver, bool bPlayer);
 	const glm::vec2 getMousePos() const;
 	const bool isPressed( const sf::InputTag& iTag ) const;
 	const bool isRepeat( const sf::InputTag& iTag ) const;
