@@ -74,9 +74,9 @@ const bool InputManager::isReleased( const sf::InputTag& iTag ) const
 	return false;
 }
 
-sf::Command* InputManager::handleInput(sf::CommandReceiver* receiver, bool bPlayerOne )
+std::unique_ptr<sf::Command> InputManager::handleInput(sf::CommandReceiver* receiver, bool bPlayerOne )
 {
-	sf::Command* command = nullptr;
+	std::unique_ptr<sf::Command> command;
 	sf::CommandTypes commandType = sf::CommandTypes::NOCOMMAND;
 
 	if (bPlayerOne)
@@ -123,11 +123,11 @@ sf::Command* InputManager::handleInput(sf::CommandReceiver* receiver, bool bPlay
 		MoveDirectionCommandReceiver* moveReceiver = dynamic_cast<MoveDirectionCommandReceiver*>(receiver);
 		if (moveReceiver)
 		{
-			command = new MoveCommand(moveReceiver, commandType);
+			command = std::make_unique<MoveCommand>(moveReceiver, commandType);
 		}
 	}
 
-	return command;
+	return std::move(command);
 }
 
 }

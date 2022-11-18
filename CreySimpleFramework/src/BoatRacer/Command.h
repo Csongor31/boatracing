@@ -17,6 +17,7 @@ class Command
 {
 public:
 	Command(sf::CommandReceiver* receiver, sf::CommandTypes commandType) : receiver_(receiver), commandType_(commandType) {}
+	Command(Command&& command);
 	virtual ~Command() {};
 	virtual bool execute() = 0;
 protected:

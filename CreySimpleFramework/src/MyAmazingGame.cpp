@@ -110,11 +110,10 @@ void MyAmazingGame::step( sf::Framework< MyAmazingGame >& iFramework )
 	glClear( GL_COLOR_BUFFER_BIT );
 
 	{
-		sf::Command* command = iFramework.getInputManager().handleInput(baBoat_, baBoat_->getPlayer());
+		std::unique_ptr<sf::Command> command = iFramework.getInputManager().handleInput(baBoat_, baBoat_->getPlayer());
 		if (command)
 		{
 			command->execute();
-			delete command;
 		}
 	}
 	sf::Actor* aActor = baBoat_->step(gMapGrid_);
@@ -131,11 +130,10 @@ void MyAmazingGame::step( sf::Framework< MyAmazingGame >& iFramework )
 
 	if (bTwoPlayer_)
 	{
-		sf::Command* command = iFramework.getInputManager().handleInput(baBoatSec_, baBoatSec_->getPlayer());
+		std::unique_ptr<sf::Command> command = iFramework.getInputManager().handleInput(baBoatSec_, baBoatSec_->getPlayer());
 		if (command)
 		{
 			command->execute();
-			delete command;
 		}
 		aActor = baBoatSec_->step(gMapGrid_);
 
