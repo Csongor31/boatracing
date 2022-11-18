@@ -21,7 +21,7 @@ MyAmazingGame::~MyAmazingGame()
 	if (gMapGrid_) delete gMapGrid_; 
 	if (baBoat_) delete baBoat_; 
 	if (baBoatSec_) delete baBoatSec_;
-	while (lActors_.empty())
+	while (!lActors_.empty())
 	{
 		delete lActors_.front();
 		lActors_.pop_front();

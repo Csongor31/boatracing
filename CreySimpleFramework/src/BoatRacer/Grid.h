@@ -39,6 +39,7 @@ public:
 			nRow++;
 		}
 	}
+	~Grid() = default;
 
 	const Cell& getCell(Actor* aActor);
 	void addActorToCell(Actor* aActor);

@@ -12,6 +12,7 @@ class Actor : virtual public sf::CommandReceiver
 {
 public:
 	Actor() : sf::CommandReceiver() { spSprite_ = std::make_unique<sf::Sprite>(); }
+	~Actor() = default;
 
 	Sprite* getSprite() { return spSprite_.get(); }
 
